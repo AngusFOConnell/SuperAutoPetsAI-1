@@ -1,0 +1,34 @@
+1 ant 2 1 1 1 0 None fish 3 3 1 1 1 None otter 1 2 1 1 2 None 
+1 ant 2 1 1 1 0 None mosquito 2 2 1 1 1 None mosquito 2 2 1 1 2 None
+1 cricket 1 2 1 1 0 None cricket 1 2 1 1 1 None cricket 1 2 1 1 2 None
+1 duck 3 4 1 1 0 None duck 2 3 1 1 1 None otter 1 2 1 1 2 None 
+2 ant 2 1 1 1 0 None ant 2 1 1 1 1 None mosquito 3 3 1 1 2 None mosquito 3 3 1 1 3 None mosquito 2 2 1 1 4 None
+2 horse 2 1 1 1 0 None mosquito 2 2 1 1 1 None beaver 5 2 1 1 2 None horse 5 2 1 1 3 None duck 2 3 1 1 4 None
+3 ant 4 3 2 1 0 None mosquito 6 6 2 1 1 None giraffe 1 3 1 1 2 None swan 1 3 1 1 3 None
+3 camel 4 6 1 1 0 None ant 2 1 1 1 1 None fish 4 4 1 2 2 None otter 2 3 1 2 3 None horse 5 4 2 1 4 None
+4 ant 4 3 1 2 0 None fish 6 6 1 2 1 None fish 5 5 1 1 2 None otter 4 5 2 1 3 None swan 1 3 1 1 4 None
+4 ant 4 3 2 1 0 None mosquito 8 8 2 1 1 None giraffe 1 3 1 1 2 meat swan 1 3 1 1 3 None swan 1 3 1 1 4 None
+5 ant 4 3 2 1 0 None mosquito 10 10 2 1 1 garlic giraffe 1 3 1 1 2 meat swan 1 3 1 1 3 None swan 1 3 1 1 4 None
+5 spider 3 3 1 2 0 None ant 8 7 2 3 1 None mosquito 4 4 2 1 2 None dog 3 4 1 1 3 None horse 2 1 1 1 4 None
+6 ant 4 3 2 1 0 None mosquito 11 11 2 1 1 garlic giraffe 1 3 1 2 2 meat swan 3 5 2 1 3 None rooster 5 3 1 1 4 None
+6 fish 8 8 2 1 0 None elephant 3 5 1 1 1 None camel 7 11 1 2 2 None ant 6 5 2 1 3 None otter 7 8 3 1 4 None
+7 ant 4 3 2 1 0 None mosquito 12 12 2 1 1 garlic giraffe 2 4 1 2 2 meat swan 3 5 2 1 3 None rooster 7 5 2 1 4 None
+7 beaver 5 4 2 1 0 None peacock 9 12 2 2 1 None dodo 3 4 1 2 2 None spider 2 2 1 1 3 None kangaroo 4 5 1 1 4 None
+8 badger 17 17 1 1 0 garlic giraffe 2 4 1 1 1 meat skunk 5 7 1 1 2 None mosquito 10 10 3 1 3 garlic seal 5 10 1 1 4 None
+8 mosquito 13 13 2 1 0 garlic giraffe 2 4 1 2 1 meat swan 7 7 2 1 2 None crocodile 8 4 1 1 3 None rooster 11 9 2 1 4 None
+9 leopard 15 10 1 1 0 None elephant 14 16 1 1 1 garlic blowfish 8 10 2 1 2 None cricket 8 9 2 1 3 garlic monkey 1 2 1 1 4 None
+9 mosquito 14 14 2 1 0 garlic giraffe 2 4 1 2 1 meat swan 7 7 2 1 2 chilli crocodile 8 4 1 1 3 None rooster 15 13 2 1 4 None
+10 camel 4 6 1 1 0 garlic hippo 9 12 1 2 1 garlic sheep 3 3 1 2 2 None whale 3 10 1 1 3 None horse 8 8 2 2 4 chilli
+10 mosquito 14 14 2 1 0 garlic rooster 19 17 2 1 1 None swan 7 7 2 1 2 chilli crocodile 8 4 1 1 3 None cat 4 5 1 1 4 None
+11 elephant 6 8 2 1 0 meat camel 5 9 2 1 1 None rooster 9 7 1 2 2 mushroom turkey 4 5 1 2 3 None shark 7 5 2 1 4 None
+11 mosquito 16 16 2 1 0 garlic rooster 25 23 2 1 1 None swan 7 7 2 1 2 chilli crocodile 8 4 1 1 3 steak cat 6 7 1 1 4 None
+12 elephant 18 25 1 2 0 None camel 10 17 2 1 1 garlic peacock 9 15 1 2 2 garlic penguin 5 7 2 2 3 None monkey 7 8 2 1 4 None
+12 swan 7 7 2 1 0 chilli rooster 31 29 2 1 1 garlic mosquito 16 16 2 1 2 garlic crocodile 8 4 1 1 3 steak cat 8 9 2 1 4 None
+13 sheep 7 7 1 1 0 None whale 12 19 1 1 1 melon dog 20 21 3 1 2 garlic snake 9 9 1 1 3 steak turkey 4 5 1 2 4 None
+13 swan 7 7 2 1 0 chilli rooster 33 31 2 3 1 garlic mosquito 19 19 2 1 2 garlic crocodile 11 7 1 1 3 steak cat 11 12 2 1 4 None
+14 bison 50 50 1 1 0 melon deer 7 7 2 2 1 None sheep 7 7 3 1 2 None monkey 6 7 2 1 3 None turkey 8 9 3 1 4 melon
+14 swan 13 13 2 1 0 chilli rooster 39 37 2 3 1 garlic mosquito 19 19 2 1 2 garlic crocodile 18 14 1 2 3 steak cat 11 12 2 1 4 None
+15 scorpion 4 4 1 1 0 peanuts camel 15 29 1 2 1 garlic rhino 11 24 1 1 2 melon kangaroo 11 20 2 1 3 garlic crocodile 10 6 1 1 4 melon
+15 swan 13 13 2 1 0 chilli crocodile 18 14 1 2 1 steak rooster 40 38 3 1 2 melon cat 11 12 2 1 3 melon mosquito 19 19 2 1 4 garlic
+16 snake 8 8 1 2 0 steak duck 18 18 2 1 1 steak skunk 9 11 3 1 2 steak ox 21 24 1 1 3 melon parrot 8 6 2 1 4 mushroom
+16 swan 13 13 2 1 0 chilli crocodile 19 15 2 1 1 steak rooster 46 44 3 1 2 melon cat 11 12 2 1 3 melon mosquito 19 19 2 1 4 garlic
