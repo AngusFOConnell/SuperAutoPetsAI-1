@@ -1,21 +1,11 @@
 import leaderboard
 
-def team_data(team_1, team_2, turn_number):
+def team_data(team_1, turn_number):
     original_stdout = sys.stdout
     with open('team_data.txt', 'a') as f:
         sys.stdout = f
         print(turn_number, end=" ")
         for pet in team_1:
-            print(pet.name, end=" ")
-            print(pet.attack, end=" ")
-            print(pet.health, end=" ")
-            print(pet.level, end=" ")
-            print(pet.exp, end=" ")
-            print(pet.pos, end=" ")
-            print(pet.held, end=" ")
-        print()
-        print(turn_number, end=" ")
-        for pet in team_2:
             print(pet.name, end=" ")
             print(pet.attack, end=" ")
             print(pet.health, end=" ")
