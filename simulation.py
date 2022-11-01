@@ -1,7 +1,6 @@
 import random, copy, sys
-
 import classes
-from classes import Pet
+import shop
 
 def turn(team_1, team_2):
     debug = 0
@@ -10,8 +9,8 @@ def turn(team_1, team_2):
     team2_win = 0
     draw = 0
 
-    number_of_battles = 1000
-    for battle in range(0, 1000):
+    number_of_battles = 50
+    for battle in range(0, number_of_battles):
         team1 = copy.deepcopy(team_1)
         team2 = copy.deepcopy(team_2)
         if debug:
@@ -80,7 +79,6 @@ def turn(team_1, team_2):
             if debug:
                 print("-------------DRAW-------------")
             draw += 1
-
     return(float(team1_win/number_of_battles), float(team2_win/number_of_battles), float(draw/number_of_battles))
 def get_pos(pet):
     return pet.pos
@@ -469,14 +467,14 @@ def faint(team1, team2, team1_fainted, team2_fainted):
                     (team1, team2) = post_damage_checks(team1, team2)
                 if pet.name == "cricket":
                     if len(team1) < 5:
-                        summon = Pet("zombie_cricket", 1 * pet.level, 1 * level, level,
+                        summon = classes.Pet("zombie_cricket", 1 * pet.level, 1 * level, level,
                                      (level / 3) + 1, pet.pos, None)
                         team1 = [summon] + team1
                         team1_summons = [summon] + team1_summons
                         team1 = sort_team(team1)
                 if pet.name == "deer":
                     if len(team1) < 5:
-                        summon = Pet("bus", 5 * level, 5 * level, level,
+                        summon = classes.Pet("bus", 5 * level, 5 * level, level,
                                      (level / 3) + 1, pet.pos, "chilli")
                         team1 = [summon] + team1
                         team1_summons = [summon] + team1_summons
@@ -484,7 +482,7 @@ def faint(team1, team2, team1_fainted, team2_fainted):
                 if pet.name == "sheep":
                     for trigger in range(0, 2):
                         if len(team1) < 5:
-                            summon = Pet("ram", 2 * level, 2 * level, level,
+                            summon = classes.Pet("ram", 2 * level, 2 * level, level,
                                          (level / 3) + 1, pet.pos, None)
                             team1 = [summon] + team1
                             team1_summons = [summon] + team1_summons
@@ -493,10 +491,10 @@ def faint(team1, team2, team1_fainted, team2_fainted):
                     for trigger in range(0, level):
                         if len(team1) < 5:
                             if pet.attack < 2:
-                                summon = Pet("chick", 1, 1, level,
+                                summon = classes.Pet("chick", 1, 1, level,
                                              (level / 3) + 1, pet.pos, None)
                             else:
-                                summon = Pet("chick", int(pet.attack / 2), 1, level,
+                                summon = classes.Pet("chick", int(pet.attack / 2), 1, level,
                                              (level / 3) + 1, pet.pos, None)
                             team1 = [summon] + team1
                             team1_summons = [summon] + team1_summons
@@ -505,7 +503,7 @@ def faint(team1, team2, team1_fainted, team2_fainted):
                     if len(team1) < 5:
                         tier_3 = ["blowfish", "camel", "dog", "dolphin", "giraffe", "kangaroo", "ox", "rabbit", "sheep",
                                   "snail"]
-                        summon = Pet(random.choice(tier_3), 2, 2, level,
+                        summon = classes.Pet(random.choice(tier_3), 2, 2, level,
                                      (level / 3) + 1, pet.pos, None)
                         team1 = [summon] + team1
                         team1_summons = [summon] + team1_summons
@@ -522,7 +520,7 @@ def faint(team1, team2, team1_fainted, team2_fainted):
                     for trigger in range(0, min(level, 5 - len(team2))):
                         for team2_pet in team2:
                             team2_pet.pos = team2_pet.pos + 1
-                        summon = Pet("dirty_rat", 1, 1, level,
+                        summon = classes.Pet("dirty_rat", 1, 1, level,
                                      (level / 3) + 1, 0, None)
                         team2 = [summon] + team2
                         team2_summons = [summon] + team2_summons
@@ -547,7 +545,7 @@ def faint(team1, team2, team1_fainted, team2_fainted):
                         if pet.name != "zombie_fly":
                             if len(team1) < 5:
                                 if other_pet.triggers > 0:
-                                    summon = Pet("zombie_fly", 4 * level, 4 * level,
+                                    summon = classes.Pet("zombie_fly", 4 * level, 4 * level,
                                                  level,
                                                  (level / 3) + 1, pet.pos, None)
                                     team1 = [summon] + team1
@@ -563,7 +561,7 @@ def faint(team1, team2, team1_fainted, team2_fainted):
             # Mushroom + Honey
             if pet.held == "mushroom":
                 if len(team1) < 5:
-                    summon = Pet(pet.name, 1, 1, level,
+                    summon = classes.Pet(pet.name, 1, 1, level,
                                  (level / 3) + 1, pet.pos, None)
                     if summon.name == 'scorpion':
                         summon.held = "peanuts"
@@ -572,7 +570,7 @@ def faint(team1, team2, team1_fainted, team2_fainted):
                     team1 = sort_team(team1)
             elif pet.held == "honey":
                 if len(team1) < 5:
-                    summon = Pet("bee", 1, 1, level,
+                    summon = classes.Pet("bee", 1, 1, level,
                                  (level / 3) + 1, pet.pos, None)
                     team1 = [summon] + team1
                     team1_summons = [summon] + team1_summons
@@ -611,14 +609,14 @@ def faint(team1, team2, team1_fainted, team2_fainted):
                     (team1, team2) = post_damage_checks(team1, team2)
                 if pet.name == "cricket":
                     if len(team2) < 5:
-                        summon = Pet("zombie_cricket", 1 * level, 1 * level, level,
+                        summon = classes.Pet("zombie_cricket", 1 * level, 1 * level, level,
                                      (level / 3) + 1, pet.pos, None)
                         team2 = [summon] + team2
                         team2_summons = [summon] + team2_summons
                         team2 = sort_team(team2)
                 if pet.name == "deer":
                     if len(team2) < 5:
-                        summon = Pet("bus", 5 * level, 5 * level, level,
+                        summon = classes.Pet("bus", 5 * level, 5 * level, level,
                                      (level / 3) + 1, pet.pos, "chilli")
                         team2 = [summon] + team2
                         team2_summons = [summon] + team2_summons
@@ -626,7 +624,7 @@ def faint(team1, team2, team1_fainted, team2_fainted):
                 if pet.name == "sheep":
                     for trigger in range(0, 2):
                         if len(team2) < 5:
-                            summon = Pet("ram", 2 * level, 2 * level, level,
+                            summon = classes.Pet("ram", 2 * level, 2 * level, level,
                                          (level / 3) + 1, pet.pos, None)
                             team2 = [summon] + team2
                             team2_summons = [summon] + team2_summons
@@ -635,10 +633,10 @@ def faint(team1, team2, team1_fainted, team2_fainted):
                     for trigger in range(0, level):
                         if len(team2) < 5:
                             if pet.attack < 2:
-                                summon = Pet("chick", 1, 1, level,
+                                summon = classes.Pet("chick", 1, 1, level,
                                              (level / 3) + 1, pet.pos, None)
                             else:
-                                summon = Pet("chick", int(pet.attack / 2), 1, level,
+                                summon = classes.Pet("chick", int(pet.attack / 2), 1, level,
                                              (level / 3) + 1, pet.pos, None)
                             team2 = [summon] + team2
                             team2_summons = [summon] + team2_summons
@@ -647,7 +645,7 @@ def faint(team1, team2, team1_fainted, team2_fainted):
                     if len(team2) < 5:
                         tier_3 = ["blowfish", "camel", "dog", "dolphin", "giraffe", "kangaroo", "ox", "rabbit", "sheep",
                                   "snail"]
-                        summon = Pet(random.choice(tier_3), 2, 2, level,
+                        summon = classes.Pet(random.choice(tier_3), 2, 2, level,
                                      (level / 3) + 1, pet.pos, None)
                         team2 = [summon] + team2
                         team2_summons = [summon] + team2_summons
@@ -665,7 +663,7 @@ def faint(team1, team2, team1_fainted, team2_fainted):
                     for trigger in range(0, min(level, 5 - len(team2))):
                         for team2_pet in team1:
                             team2_pet.pos = team2_pet.pos + 1
-                        summon = Pet("dirty_rat", 1, 1, level,
+                        summon = classes.Pet("dirty_rat", 1, 1, level,
                                      (level / 3) + 1, 0, None)
                         team1 = [summon] + team1
                         team1_summons = [summon] + team1_summons
@@ -690,7 +688,7 @@ def faint(team1, team2, team1_fainted, team2_fainted):
                         if pet.name != "zombie_fly":
                             if len(team2) < 5:
                                 if other_pet.triggers > 0:
-                                    summon = Pet("zombie_fly", 4 * level, 4 * level,
+                                    summon = classes.Pet("zombie_fly", 4 * level, 4 * level,
                                                  level,
                                                  (level / 3) + 1, pet.pos, None)
                                     team2 = [summon] + team2
@@ -706,7 +704,7 @@ def faint(team1, team2, team1_fainted, team2_fainted):
             #Mushroom + Honey
             if pet.held == "mushroom":
                 if len(team2) < 5:
-                    summon = Pet(pet.name, 1, 1, pet.level,
+                    summon = classes.Pet(pet.name, 1, 1, pet.level,
                                  (pet.level / 3) + 1, pet.pos, None)
                     if summon.name == 'scorpion':
                         summon.held = "peanuts"
@@ -715,7 +713,7 @@ def faint(team1, team2, team1_fainted, team2_fainted):
                     team2 = sort_team(team2)
             elif pet.held == "honey":
                 if len(team2) < 5:
-                    summon = Pet("bee", 1, 1, pet.level,
+                    summon = classes.Pet("bee", 1, 1, pet.level,
                                  (pet.level / 3) + 1, pet.pos, None)
                     team2 = [summon] + team2
                     team2_summons = [summon] + team2_summons
@@ -1056,8 +1054,8 @@ def tiger(pet, team):
             return 2, team[pet.pos].level
     return 1, None
 
-def shop(team, turn, frozen_pets, frozen_food, can_count):
-
+def simulate_shop(team, turn, frozen_pets, frozen_food, can_count):
+    import leaderboard
     gold = 10
     if frozen_pets is not None:
         pet_shop = frozen_pets
@@ -1069,9 +1067,48 @@ def shop(team, turn, frozen_pets, frozen_food, can_count):
     else:
         food_shop = []
 
-    tier_1_pets = [("ant", (2, 1)), ("beaver", (3, 2)), ("cricket", (1, 2)), ("duck", (2, 3)), ("fish", (2, 2)), ("horse", (2, 1)), ("mosquito", (2, 2)), ("otter", (1, 2)), ("pig", (4, 1))]
+    (team, pet_shop, food_shop) = start_of_turn(team, turn)
+
+    end_of_turn = False
+    while (end_of_turn is False):
+        actions = shop.actions([pet_shop, food_shop, gold], team)
+        action = random.choice(actions)
+
+        if action[0] == "end_of_turn":
+            end_of_turn = True
+            team_str = ""
+            team_str = team_str + str(turn) + " "
+            for pet in team:
+                team_str = team_str + str(pet.name) + " "
+                team_str = team_str + str(pet.attack) + " "
+                team_str = team_str + str(pet.health) + " "
+                team_str = team_str + str(pet.level) + " "
+                team_str = team_str + str(pet.exp) + " "
+                team_str = team_str + str(pet.pos) + " "
+                team_str = team_str + str(pet.held) + " "
+            team_score = leaderboard.add_to_leaderboard(team_str)
+            print(team_str, team_score)
+            break
+        elif action[0] == "roll":
+            (team, pet_shop, food_shop, gold) = shop.simulate_action(action, team, [pet_shop, food_shop, gold])
+            (pet_shop, food_shop) = roll_shop(turn)
+        else:
+            (team, pet_shop, food_shop, gold) = shop.simulate_action(action, team, [pet_shop, food_shop, gold])
+
+def start_of_turn(team, turn):
+    team = sort_team(team)
+    for pet in team:
+        if pet.name == "swan":
+            gold += pet.level
+    (pet_shop, food_shop) = roll_shop(turn)
+    return team, pet_shop, food_shop,
+
+def roll_shop(turn):
+    tier_1_pets = [("ant", (2, 1)), ("beaver", (3, 2)), ("cricket", (1, 2)), ("duck", (2, 3)), ("fish", (2, 2)),
+                   ("horse", (2, 1)), ("mosquito", (2, 2)), ("otter", (1, 2)), ("pig", (4, 1))]
     tier_1_food = ["apple", "honey"]
-    tier_2_pets = [("rat", (4, 5)), ("shrimp", (2, 3)), ("hedgehog", (3, 2)), ("flamingo", (4, 2)), ("spider", (2, 2)), ("swan", (1, 3)), ("peacock", (2, 5)), ("dodo", (2, 3)), ("elephant", (3, 5)), ("crab", (3, 1))]
+    tier_2_pets = [("rat", (4, 5)), ("shrimp", (2, 3)), ("hedgehog", (3, 2)), ("flamingo", (4, 2)), ("spider", (2, 2)),
+                   ("swan", (1, 3)), ("peacock", (2, 5)), ("dodo", (2, 3)), ("elephant", (3, 5)), ("crab", (3, 1))]
     tier_2_food = ["pill", "cupcake", "meat"]
 
     if turn < 3:
@@ -1079,45 +1116,12 @@ def shop(team, turn, frozen_pets, frozen_food, can_count):
         food_space = 1
         shop_pets = tier_1_pets
         shop_food = tier_1_food
-
-    start_of_turn(team)
-
-    end_of_turn = False
-    actions = []
-    while (end_of_turn is False):
-        if gold > 3:
-            if len(team) < 5:
-                for pet in pet_shop:
-                    actions.append(["buy", pet, len(team)])
-            for pet_in_shop in pet_shop:
-                for pet_in_team in team:
-                    if pet_in_shop.name == pet_in_team.name and pet_in_team.level < 3:
-                        actions.append(["buy", pet, pet_in_team.pos])
-            for food in food_shop:
-                for pet in team:
-                    actions.append(["buy", food, pet.pos])
-        for pet in team:
-            actions.append(["sell", pet])
-        if gold > 1:
-            actions.append("roll")
-        for pet in team:
-            for other_pet in team:
-                if pet != other_pet:
-                    actions.append("swap", pet, other_pet)
-
-
-
-
-def start_of_turn(team):
-    team = sort_team(team)
-    for pet in team:
-        if pet.name == "swan":
-            gold += pet.level
-    for space in range(0, (pet_space - len(pet_shop))):
+    pet_shop = []
+    food_shop = []
+    for space in range(0, pet_space):
         pet = random.choice(shop_pets)
         pet_shop.append(classes.ShopPet(pet[0], pet[1][0], pet[1][1]))
     for space in range(0, food_space):
         food_shop.append(random.choice(shop_food))
-
-
+    return pet_shop, food_shop
 
