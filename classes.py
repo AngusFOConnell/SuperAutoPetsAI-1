@@ -22,3 +22,24 @@ class ShopPet:
         self.attack = attack
         self.health = health
         self.frozen = None
+
+class Tree:
+    def __init__(self, action, score):
+        self.action = action
+        self.score = score
+        self.children = []
+
+    def addChild(self, tree):
+        self.children.append(tree)
+
+    def __str__(self, level=0):
+        if self.action != None:
+            if self.action[0] == "buy_food":
+                ret = "\t" * level + self.action[0] + " " + self.action[1] + " " + str(self.score) + "\n"
+            else:
+                ret = "\t" * level + self.action[0] + " " + self.action[1].name + " " + str(self.score) + "\n"
+        else:
+            ret = "\t" * level + str(self.action) + " " + str(self.score) + "\n"
+        for child in self.children:
+            ret += child.__str__(level + 1)
+        return ret
