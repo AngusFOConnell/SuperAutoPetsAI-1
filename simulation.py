@@ -1,6 +1,7 @@
 import random, copy, sys
 import classes
 import shop
+import math
 
 def turn(team_1, team_2):
     debug = 0
@@ -1055,7 +1056,6 @@ def tiger(pet, team):
     return 1, None
 
 def simulate_shop(team, turn, frozen_pets, frozen_food, can_count):
-    import leaderboard
     gold = 10
     if frozen_pets is not None:
         pet_shop = frozen_pets
@@ -1070,30 +1070,55 @@ def simulate_shop(team, turn, frozen_pets, frozen_food, can_count):
     (team, pet_shop, food_shop) = start_of_turn(team, turn)
 
     end_of_turn = False
+    print('-------------SHOP-------------')
+    for pet in pet_shop:
+        print(pet.name, end=" ")
+    for food in food_shop:
+        print(food, end=" ")
+    print()
+    action_worth_score = -math.inf
     while (end_of_turn is False):
         actions = shop.actions([pet_shop, food_shop, gold], team)
-        action = random.choice(actions)
-
-        if action[0] == "end_of_turn":
-            end_of_turn = True
-            team_str = ""
-            team_str = team_str + str(turn) + " "
-            for pet in team:
-                team_str = team_str + str(pet.name) + " "
-                team_str = team_str + str(pet.attack) + " "
-                team_str = team_str + str(pet.health) + " "
-                team_str = team_str + str(pet.level) + " "
-                team_str = team_str + str(pet.exp) + " "
-                team_str = team_str + str(pet.pos) + " "
-                team_str = team_str + str(pet.held) + " "
-            team_score = leaderboard.add_to_leaderboard(team_str)
-            print(team_str, team_score)
-            break
-        elif action[0] == "roll":
-            (team, pet_shop, food_shop, gold) = shop.simulate_action(action, team, [pet_shop, food_shop, gold])
+        action_tree = tree_creator(classes.Tree(None, None), [pet_shop, food_shop, gold, team, turn])
+        max_score = findMax(action_tree)
+        print(action_tree)
+        print(max_score)
+        arr = []
+        if max_score > action_worth_score:
+            action_worth_score = max_score
+            maxPath(action_tree, arr, max_score)
+            for action in arr:
+                if action[0] == "buy_food":
+                    print(action[0], action[1], end=" ")
+                else:
+                    print(action[0], action[1].name, end=" ")
+            print()
+            for action in arr:
+                (team, pet_shop, food_shop, gold) = shop.simulate_action(action, team, [pet_shop, food_shop, gold])
+        if gold > 0 and len(arr) == 0:
+            (team, pet_shop, food_shop, gold) = shop.simulate_action(['roll'], team, [pet_shop, food_shop, gold])
             (pet_shop, food_shop) = roll_shop(turn)
-        else:
-            (team, pet_shop, food_shop, gold) = shop.simulate_action(action, team, [pet_shop, food_shop, gold])
+        elif gold == 0 and len(arr) == 0:
+            end_of_turn = True
+            team_score = get_score(team, turn)
+            for pet in team:
+                print(pet.name, pet.attack, pet.health, end=" ")
+            print()
+            print(team_score)
+            break
+
+
+
+    # if action[0] == "end_of_turn":
+        # end_of_turn = True
+        # team_score = get_score(team, turn)
+        # print(team_str, team_score)
+       # break
+    # elif action[0] == "roll":
+        # (team, pet_shop, food_shop, gold) = shop.simulate_action(action, team, [pet_shop, food_shop, gold])
+        # (pet_shop, food_shop) = roll_shop(turn)
+    # else:
+        # (team, pet_shop, food_shop, gold) = shop.simulate_action(action, team, [pet_shop, food_shop, gold])
 
 def start_of_turn(team, turn):
     team = sort_team(team)
@@ -1105,7 +1130,7 @@ def start_of_turn(team, turn):
 
 def roll_shop(turn):
     tier_1_pets = [("ant", (2, 1)), ("beaver", (3, 2)), ("cricket", (1, 2)), ("duck", (2, 3)), ("fish", (2, 2)),
-                   ("horse", (2, 1)), ("mosquito", (2, 2)), ("otter", (1, 2)), ("pig", (4, 1))]
+                   ("mosquito", (2, 2)), ("otter", (1, 2)), ("pig", (4, 1))]
     tier_1_food = ["apple", "honey"]
     tier_2_pets = [("rat", (4, 5)), ("shrimp", (2, 3)), ("hedgehog", (3, 2)), ("flamingo", (4, 2)), ("spider", (2, 2)),
                    ("swan", (1, 3)), ("peacock", (2, 5)), ("dodo", (2, 3)), ("elephant", (3, 5)), ("crab", (3, 1))]
@@ -1124,4 +1149,76 @@ def roll_shop(turn):
     for space in range(0, food_space):
         food_shop.append(random.choice(shop_food))
     return pet_shop, food_shop
+
+def get_score(team, turn):
+    import leaderboard
+    team_str = ""
+    team_str = team_str + str(turn) + " "
+    for pet in team:
+        team_str = team_str + str(pet.name) + " "
+        team_str = team_str + str(pet.attack) + " "
+        team_str = team_str + str(pet.health) + " "
+        team_str = team_str + str(pet.level) + " "
+        team_str = team_str + str(pet.exp) + " "
+        team_str = team_str + str(pet.pos) + " "
+        team_str = team_str + str(pet.held) + " "
+    return leaderboard.add_to_leaderboard(team_str)
+
+def tree_creator(tree, data):
+    # data = [pet_shop, food_shop, gold, team, turn]
+    actions = shop.actions([data[0], data[1], data[2]], data[3])
+    if len(actions) > 0:
+        for action in actions:
+            temp_team = copy.deepcopy(data[3])
+            temp_pet_shop = copy.deepcopy(data[0])
+            temp_food_shop = copy.deepcopy(data[1])
+            temp_gold = copy.deepcopy(data[2])
+
+            (temp_team, temp_pet_shop, temp_food_shop, temp_gold) = shop.simulate_action(action, temp_team, [temp_pet_shop, temp_food_shop, temp_gold])
+
+            score = get_score(temp_team, data[4])
+
+            child_tree = tree_creator(classes.Tree(action, score), [temp_pet_shop, temp_food_shop, temp_gold, temp_team, data[4]])
+            tree.addChild(child_tree)
+    return tree
+
+def findMax(tree):
+    if len(tree.children) == 0:
+        return tree.score
+
+    score = tree.score
+    if score == None:
+        max = -math.inf
+    else:
+        max = score
+    for child in tree.children:
+        child_score = findMax(child)
+        if child_score > max:
+            max = child_score
+    return max
+
+
+def maxPath(tree, arr, max_score):
+
+    if tree.action != None:
+        arr.append(tree.action)
+        if (tree.score == max_score):
+            return True
+
+    if len(tree.children) == 0:
+        return False
+
+    for child in tree.children:
+        if (maxPath(child, arr, max_score)):
+            return True
+        else:
+            if len(arr) > 0:
+                arr.pop(-1)
+
+    if tree.action != None:
+        if len(arr) > 0:
+            arr.pop(-1)
+    return False
+
+
 
