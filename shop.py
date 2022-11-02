@@ -10,24 +10,28 @@ def actions(shop, team):
     foods = shop[1]
     if gold > 3:
         if len(team) < 5:
+            pos_count = 0
             for pet in pets:
-                actions.append(["buy_pet", pet, len(team)])
+                actions.append(["buy_pet", pet, len(team), pos_count])
+                pos_count += 1
+        pos_count = 0
         for shop_pet in pets:
             for team_pet in team:
                 if shop_pet.name == team_pet.name and team_pet.level < 3:
-                    actions.append(["level", shop_pet, team_pet.pos])
+                    actions.append(["level", shop_pet, team_pet.pos, pos_count])
+            pos_count += 1
         for food in foods:
             for pet in team:
                 actions.append(["buy_food", food, pet.pos])
     for pet in team:
         actions.append(["sell", pet, pet.pos])
-    if gold > 1:
-        actions.append(["roll"])
-    actions.append(["end_of_turn"])
+    # if gold > 1:
+        # actions.append(["roll"])
+    # actions.append(["end_of_turn"])
     return actions
 
 def simulate_action(action, team, shop):
-    # shop = [[pets], [food], gold]
+    # shop = [[pets], [food], gold]]
     temp_team = copy.deepcopy(team)
     temp_shop = copy.deepcopy(shop)
     gold = temp_shop[2]
@@ -44,6 +48,7 @@ def simulate_action(action, team, shop):
             if other_pet.name == "horse":
                 pet.attack = pet.attack + other_pet.level
         temp_team.append(classes.Pet(pet.name, pet.attack, pet.health, 1, 0, action[2], None))
+        temp_shop[0].pop(action[3])
         import simulation
         temp_team = simulation.sort_team(temp_team)
     if action[0] == "sell":
