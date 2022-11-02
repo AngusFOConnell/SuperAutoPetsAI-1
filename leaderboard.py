@@ -17,7 +17,6 @@ def add_to_leaderboard(team):
         if team_data in leaderboard_dict[team_turn]:
             on_file = True
 
-    print(on_file)
     if on_file is False:
         if team_turn in leaderboard_dict.keys():
             teams = copy.deepcopy(leaderboard_dict[team_turn])
